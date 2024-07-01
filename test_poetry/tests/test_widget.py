@@ -1,10 +1,34 @@
 import pytest
+
 from test_poetry.src.widget import masked_account_card, get_data
 
 
-def test_masked_account_card(card):
-    assert masked_account_card("2222 3333 4444 5555, 2222 3333 4444 5555") == card
+@pytest.mark.parametrize("entry, exit", [
+    (
+            [
+                {"2222 3333 4444 5555"}, {"2222 3333 4444 5555"}
+            ],
+            [
+                {"03-07-2019"},
+            ]
+    )
+    ]
+                         )
+
+def test_masked_account_card(entry, exit    ):
+    assert masked_account_card(entry) == exit
 
 
-def test_get_data(data):
-    assert get_data("2012.12.10") == data
+@pytest.mark.parametrize("entry, exit", [
+    (
+            [
+                {"2019-07-03"}
+            ],
+            [
+                {"03-07-2019"},
+            ]
+    )
+]
+                         )
+def test_get_data(entry, exit):
+    assert get_data(entry) == exit
