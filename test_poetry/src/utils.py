@@ -60,10 +60,3 @@ def get_transactions_xlsx(path: str) -> list[dict] | str:
             return read_xlsx_to_dict
     except FileNotFoundError as ex:
         return f"Файл не найден: {ex}"
-
-
-# if __name__ == "__main__":
-#     file_path = "../data/operations.json"
-#     print(get_transactions_json(file_path))
-#     file_path = "../data/transactions_excel.xlsx"
-#     print(get_transactions_xlsx(file_path))
