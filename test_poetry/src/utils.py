@@ -8,7 +8,7 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler(f"../logs/{__name__}.log", mode="w")
+file_handler = logging.FileHandler(f"../logs/src.masks.log", mode="w")
 file_formater = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formater)
 logger.addHandler(file_handler)
