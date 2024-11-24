@@ -106,9 +106,9 @@ def result_printing(operations: list[dict]) -> None:
         for operation in operations:
             print(f'\n{convert_date(operation["date"])} {operation["description"]}')
             if (
-                (operation.get("from", 0) == 0)
-                or (operation.get("from", 0) is None)
-                or (operation.get("from", 0) == "NaN")
+                    (operation.get("from", 0) == 0)
+                    or (operation.get("from", 0) is None)
+                    or (operation.get("from", 0) == "NaN")
             ):
                 print(mask_data(operation["to"]))
             else:

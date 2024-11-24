@@ -15,11 +15,15 @@ def log(filename=None):
                         file.write(f"{func.__name__} ошибка: {mistake}. Inputs: ({args}, {kwargs})")
                 else:
                     print(f"{func.__name__} ошибка: {mistake}. Inputs: ({args}, {kwargs})")
+
         return wrapper
+
     return decorate
+
 
 @log()
 def my_function(x, y):
     return x + y
+
 
 print(my_function(1, 2))

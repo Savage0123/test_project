@@ -69,7 +69,8 @@ def test_get_transactions_invalid_json(mock_os_path_exists):
     mock_os_path_exists.return_value = True
     m = mock_open(read_data='{"amount": "200", "currency": "USD"}')
     with patch('builtins.open', m) as mocked_open:
-        assert get_transactions_json('operations.json') == []  # если в файле не список, функция должна вернуть пустой список
+        assert get_transactions_json(
+            'operations.json') == []  # если в файле не список, функция должна вернуть пустой список
         mocked_open.assert_called_with('operations.json', 'r', encoding='utf-8')
 
 
