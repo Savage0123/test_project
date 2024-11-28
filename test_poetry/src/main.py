@@ -1,9 +1,9 @@
 from typing import List, Dict, Any, Union
 
-from src.generators import filter_by_currency
-from src.processing import filter_by_state, sort_by_date, search_by_description
-from src.utils import get_transactions_json, get_transactions_csv, get_transactions_xlsx
-from src.widget import convert_date, mask_data
+from test_poetry.src.generators import filter_by_currency
+from test_poetry.src.processing import filter_by_state, sort_by_date, search_by_description
+from test_poetry.src.utils import get_transactions_json, get_transactions_csv, get_transactions_xlsx
+from test_poetry.src.widget import get_data, masked_account_card
 
 
 def greeting() -> List[Dict[Any, Any]] | str:
@@ -104,17 +104,17 @@ def result_printing(operations: list[dict]) -> None:
         print(f"Программа: Всего банковских операций в выборке: {len(operations)}")
 
         for operation in operations:
-            print(f'\n{convert_date(operation["date"])} {operation["description"]}')
+            print(f'\n{get_data(operation["date"])} {operation["description"]}')
             if (
                     (operation.get("from", 0) == 0)
                     or (operation.get("from", 0) is None)
                     or (operation.get("from", 0) == "NaN")
             ):
-                print(mask_data(operation["to"]))
+                print(masked_account_card(operation["to"]))
             else:
-                print(f'{mask_data(operation["from"])} -> {mask_data(operation["to"])}')
+                print(f'{masked_account_card(operation["from"])} -> {masked_account_card(operation["to"])}')
 
-            print(f"Сумма {operation['operationAmount']['amount']} {operation["operationAmount"]["currency"]["code"]}")
+            print(f"Сумма {operation['operationAmount']['amount']} {operation['operationAmount']['currency']['code']}")
 
 
 def main() -> None:
