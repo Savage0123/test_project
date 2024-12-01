@@ -1,3 +1,8 @@
+import re
+from collections import Counter
+from typing import Any, Dict, List
+
+
 def filter_by_state(dictionary_list: list, state: str = "EXECUTED") -> list:
     """Функция принимает на вход список словарей и значение для ключа state и возвращает новый список, содержащий
     словари, у которых ключ state содержит переданное в функцию значение"""
@@ -25,3 +30,22 @@ def sort_by_date(date_list: list, ascending=True) -> list:
 #                    {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
 #                    {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
 #                    {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]))
+
+def search_by_description(operations: list[dict], user_search: str) -> list[dict]:
+    """Функция принимает список словарей с данными о банковских операциях и строку поиска
+    и возвращает список словарей, у которых в описании есть данная строка
+    """
+
+    return [operation for operation in operations if re.search(user_search.lower(), operation["description"].lower())]
+
+
+def get_count_operations_by_category(operations: list[dict], list_of_category: list) -> dict:
+    """Функция принимает список словарей с данными о банковских операциях и список категорий операций
+    и возвращает словарь, в котором ключи — это названия категорий,
+    а значения — это количество операций в каждой категории
+    """
+    result = Counter(
+        [operation["description"] for operation in operations if operation["description"] in list_of_category]
+    )
+
+    return dict(result)
