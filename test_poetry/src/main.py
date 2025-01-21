@@ -1,8 +1,8 @@
-from typing import List, Dict, Any, Union
+from typing import Any, Dict, List, Union
 
 from test_poetry.src.generators import filter_by_currency
-from test_poetry.src.processing import filter_by_state, sort_by_date, search_by_description
-from test_poetry.src.utils import get_transactions_json, get_transactions_csv, get_transactions_xlsx
+from test_poetry.src.processing import filter_by_state, search_by_description, sort_by_date
+from test_poetry.src.utils import get_transactions_csv, get_transactions_json, get_transactions_xlsx
 from test_poetry.src.widget import get_data, masked_account_card
 
 
