@@ -1,19 +1,26 @@
-from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+from test_poetry.src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
-def test_filter_by_currency(transactions):
-    generator = filter_by_currency(transactions, "USD")
-    assert next(generator)["id"] == 939719570
-    assert next(generator)["id"] == 142264268
+def test_filter_by_currency():
+    transactions = [
+        {"operationAmount": {"currency": {"code": "USD"}}},
+        {"operationAmount": {"currency": {"code": "EUR"}}},
+        {"operationAmount": {"currency": {"code": "USD"}}},
+    ]
+    result = list(filter_by_currency(transactions, "USD"))
+    assert len(result) == 2
+    assert all(t["operationAmount"]["currency"]["code"] == "USD" for t in result)
 
 
-def test_transaction_descriptions(transactions):
-    descriptions = transaction_descriptions(transactions)
-    assert next(descriptions) == "Перевод организации"
-    assert next(descriptions) == "Перевод со счета на счет"
-    assert next(descriptions) == "Перевод со счета на счет"
-    assert next(descriptions) == "Перевод с карты на карту"
-    assert next(descriptions) == "Перевод организации"
+def test_transaction_descriptions():
+    transactions = [
+        {"description": "Payment for groceries"},
+        {"description": "Transfer to friend"},
+        {"description": "Salary"},
+    ]
+    result = list(transaction_descriptions(transactions))
+    assert len(result) == 3
+    assert result == ["Payment for groceries", "Transfer to friend", "Salary"]
 
 
 def test_card_number_generator():
